@@ -248,8 +248,11 @@
 
 \DeclareRobustCommand{\printbibliography}{
 %\DeclareRobustCommand{\printbibliography}{
-\bibliographystyle{abbrvnat}
-\bibliography{\@bibfiles}
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{chapter}{BIBLIOGRAPHY}
+  \bibliographystyle{abbrvnat}
+  \bibliography{\@bibfiles}
 }
 
 \DeclareRobustCommand{\nobibliography}{%
