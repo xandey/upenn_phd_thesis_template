@@ -1,0 +1,46 @@
+\newcommand{\full}{0.98}
+\newcommand{\half}{0.48}
+\newcommand{\third}{0.32}
+\newcommand{\quart}{0.24}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\cond}{\,|\,}
+\newcommand{\ie}{i.e.\ }
+\newcommand{\eg}{e.g.\ }
+\newcommand{\heat}{{H}}
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\imw}[2][\full]{\includegraphics[width=#1\linewidth]{#2}}
+\newcommand{\imh}[2][\full]{\includegraphics[height=#1\textheight]{#2}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\lattice}{{L}}
+\newcommand{\model}{{m}}
+\newcommand{\new}{\marginpar{NEW}}
+\newcommand{\pro}[1]{p\left(#1\right)}
+\newcommand{\setr}{\mathbb{R}}
+\newcommand{\vect}[2]{\ensuremath{\mathbf{#1}_{#2}}}
+
+\newcommand{\rangeit}{{[1\cdots t]}}
+\newcommand{\rangeiti}{{[1\cdots t-1]}}
+\newcommand{\bayes}{\stackrel{Bayes}{=}}
+\newcommand{\markov}[1]{\stackrel{Markov^{\ref{#1}}}{=}}
+
+\newenvironment{subfig}[1][\full]{\begin{subfigure}[b]{#1\textwidth}\centering}{\end{subfigure}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+
+\renewcommand{\cite}[1]{\citep{#1}}
+
+\def\algorithmautorefname{algorithm}
+\def\definitionautorefname{definition}
+
+\newcommand{\Fig}[1]{\autoref{fig:#1}}
+\newcommand{\fig}[1]{\Fig{#1}}
+%\newcommand{\fig}[1]{\hyperref[fig:#1]{figure~\ref*{fig:#1}}}
+\newcommand{\Chap}[1]{\hyperref[#1]{Chapter~\ref*{#1}}}
+\newcommand{\Sec}[1]{\hyperref[#1]{Section~\ref*{#1}}}
+
+%%%%% for egi stuff:
+%\newcommand{\comment}[1]{}
+%%%%% end for egi stuff
