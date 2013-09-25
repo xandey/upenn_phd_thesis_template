@@ -1,0 +1,9 @@
+*.log
+*.d
+*.pdf
+*.out
+*.make
+*.aux
+*.fls
+*.tdo
+*.toc

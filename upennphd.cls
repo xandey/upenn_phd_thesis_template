@@ -98,6 +98,10 @@
 
 \RequirePackage{geometry}
 
+\RequirePackage{calc}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+
 %
 % If we are showing a list of listings, then we need to include the listings package
 \if@needlistings
@@ -150,15 +154,19 @@
 \newcommand{\@university}{University of Pennsylvania}
 \newcommand{\@universityabbrev}{UPenn}
 \newcommand{\@department}{Computer and Information Science}
-\newcommand{\@graduatechair}{\color{red}Graduate~Chair}
-\newcommand{\@supervisor}{\color{red}Supervisor~Name}
+%\newcommand{\@graduatechair}{\color{red}Graduate~Chair}
+%\newcommand{\@supervisor}{{\color{red}Supervisor~Name}}
+\newcommand{\@graduatechair}{Graduate~Chair}
+\newcommand{\@supervisor}{{Supervisor~Name}}
 \newcommand{\@committeechair}{\color{red}Committee~Chair~Name}
 \newcommand{\@committeemembera}{}
 \newcommand{\@committeememberb}{}
 \newcommand{\@committeememberc}{}
 \newcommand{\@committeememberd}{}
-\newcommand{\@graduatechairtitle}{\color{red}Graduate~Chair~Title}
-\newcommand{\@supervisortitle}{\color{red}Supervisor~Title}
+%\newcommand{\@graduatechairtitle}{\color{red}Graduate~Chair~Title}
+%\newcommand{\@supervisortitle}{{\color{red}Supervisor~Title}}
+\newcommand{\@graduatechairtitle}{Graduate~Chair~Title}
+\newcommand{\@supervisortitle}{{Supervisor~Title}}
 \newcommand{\@committeechairtitle}{\color{red}Comittee~Chair~Title}
 \newcommand{\@committeemembertitlea}{}
 \newcommand{\@committeemembertitleb}{}
@@ -234,69 +242,79 @@
 }
 %\newcommand{\settextwidth}[1]{\geometry{textwidth=#1}}
 
-% setup a signature line:
-%Define the signature format
-\newcommand{\signature}[3]{%
-  \raggedright
-  #1\\
-  \vspace{\baselineskip}
-  \makebox[2.4in]{\hrulefill}\\
-  #2\\
-  #3
-}
-% two side by side
-\newcommand{\signatureTwo}[2]{
-  \centering
-      \parbox{2.5in}{#1} \hspace{0.8in}
-      \parbox{2.5in}{#2}
-}
+
+\newcommand{\mysignature}[3]{%
+  \begin{singlespace}
+   #1\\
+   \vspace{2.0\baselineskip}
+   \makebox[3.0in]{\hrulefill}\\
+   #2, #3\\
+   \vspace{\baselineskip}
+  \end{singlespace}
+}%
+
 
 %
 % Title page
 \renewcommand{\titlepage}{%
     \clearpage
     \@@pdfbookmark[1]{Title Page}{title}%
-    \centering
-        \begin{doublespace}%
-            \expandafter{\MakeUppercase{\@title}}\\
-            \expandafter{\@author}\\
-            A DISSERTATION\\
-            in\\
-            \@department\\
-            Presented to the Faculties of the \@university\\
-            in\\
-            Partial Fulfillment of the Requirements for the\\
-            \@degreename\\
-            \expandafter{\@yearapproved}
+    \begin{center}
 
-            \vspace{1.5in}
+      \begin{spacing}{2.0}
+      %\doublespacing
+      %\onehalfspacing
 
-            \signatureTwo{\signature{Supervisor of Dissertation}{\@supervisor}{\@supervisortitle}}
-                         {\signature{Graduate Group Chairperson}{\@graduatechair}{\@graduatechairtitle}}
-            
-            \vspace{\fill}
+      \expandafter{\MakeUppercase{\@title}}
 
-            \raggedright
-            Dissertation Committee\\
-            {\@committeechair}, {\@committeechairtitle}, Chair\\%
-            \if@committeemembera
-              {\@committeemembera}, {\@committeemembertitlea}\\
-            \fi
-            \if@committeememberb
-              {\@committeememberb}, {\@committeemembertitleb}\\
-            \fi
-            \if@committeememberc
-              {\@committeememberc}, {\@committeemembertitlec}\\
-            \fi
-            \if@committeememberd
-              {\@committeememberd}, {\@committeemembertitled}\\
-            \fi
-            
+      \expandafter{\@author}
+      
+      A DISSERTATION
+      
+      in
+      
+      \@department
+      
+      Presented to the Faculties of the \@university
 
-            
+      in
+      
+      Partial Fulfillment of the Requirements for the
+      
+      \@degreename
+      
+      \expandafter{\@yearapproved}
 
-        \end{doublespace}%
+      \end{spacing}
+
+    \end{center}
+    
+    \vfill % Here to make sure the page is filled
+
+    \begin{flushleft}
+
+      \mysignature{Supervisor of Dissertation}{\@supervisor}{\@supervisortitle}
+
+      \mysignature{Graduate Group Chairperson}{\@graduatechair}{\@graduatechairtitle}
+      
+      Dissertation Committee\\
+      {\@committeechair}, {\@committeechairtitle}, Chair\\%
+      \if@committeemembera
+        {\@committeemembera}, {\@committeemembertitlea}\\
+      \fi
+      \if@committeememberb
+        {\@committeememberb}, {\@committeemembertitleb}\\
+      \fi
+      \if@committeememberc
+        {\@committeememberc}, {\@committeemembertitlec}\\
+      \fi
+      \if@committeememberd
+        {\@committeememberd}, {\@committeemembertitled}\\
+      \fi
+    \end{flushleft}
+
     \newpage
+
 }
 \newcommand{\copyrightpage}{%
   \clearpage
