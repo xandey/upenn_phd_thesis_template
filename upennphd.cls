@@ -8,7 +8,7 @@
 % BYU MS/PhD LaTeX Class File
 %   http://latex-byu-thesis.googlecode.com/
 
-% Version 0.1
+% Version 0.2
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{upennphd}[2013/09/25 UPenn PhD Dissertation Class]
@@ -242,6 +242,7 @@
 }
 %\newcommand{\settextwidth}[1]{\geometry{textwidth=#1}}
 
+\newcommand{\my@title}{\expandafter{\MakeUppercase{\@title}}}
 
 \newcommand{\mysignature}[3]{%
   \begin{singlespace}
@@ -258,6 +259,8 @@
 % Title page
 \renewcommand{\titlepage}{%
     \clearpage
+    \setcounter{page}{1}
+    \thispagestyle{empty}
     \@@pdfbookmark[1]{Title Page}{title}%
     \begin{center}
 
@@ -265,7 +268,8 @@
       %\doublespacing
       %\onehalfspacing
 
-      \expandafter{\MakeUppercase{\@title}}
+      %\expandafter{\MakeUppercase{\@title}}
+      \my@title
 
       \expandafter{\@author}
       
@@ -313,44 +317,81 @@
       \fi
     \end{flushleft}
 
-    \newpage
 
 }
 \newcommand{\copyrightpage}{%
   \clearpage
-  \raggedright
-    \begin{singlespace}%
-      \parskip=1.5\baselineskip
-      \vspace{\fill}
-      \expandafter{\MakeUppercase{\@title}}
+  \thispagestyle{empty} % No page number as per Manual, p. 11
+  \begin{doublespace}
+    \setlength{\parskip}{0.5\baselineskip}
 
-      COPYRIGHT
+    \vspace*{\fill}
+    \begin{flushleft}
 
+      %\expandafter{\MakeUppercase{\@title}}
+      \my@title
+
+      \copyright \space COPYRIGHT
+      
       \expandafter{\@yearcopyrighted}
 
-      \expandafter{\@authorfull}
+      \expandafter{\@authorfull}\\[24 pt] % If traditional copyright then delete everything below here, but keep \end{flushleft}
 
-      This work is licensed under the\\ 
-      Creative Commons Attribution-\\
-      NonCommercial-ShareAlike 3.0\\
+      This work is licensed under the \\
+      Creative Commons Attribution \\
+      NonCommercial-ShareAlike 3.0 \\
       License
 
       To view a copy of this license, visit
 
       \url{http://creativecommons.org/licenses/by-nc-sa/3.0/us/}
-    \end{singlespace}%
-  \newpage
+
+    \end{flushleft}
+  \end{doublespace}
+
 }%
+
+% abstract page style, different chapter headings
+
+
+% ABSTRACT
 \newcommand{\abstractpage}{%
     \clearpage
-    \bf abstract goes here
-    \newpage
+
+    \phantomsection
+    \addcontentsline{toc}{chapter}{ABSTRACT} % This is to include this section in the Table of Contents
+
+    \begin{center}
+      \begin{spacing}{2.5}
+        ABSTRACT
+      \end{spacing}
+
+      \my@title
+
+      \@author
+
+      \@supervisor
+
+    \end{center}
+    \noindent
+    \@documentabstract
+}%
+
+% ACKNOWLEDGMENTS
+\newcommand{\acknowledgmentspage}{%
+    \clearpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{ACKNOWLEDGMENT} % This is to include this section in the Table of Contents
+    \begin{center}
+        ACKNOWLEDGMENT
+    \end{center}
+    \noindent
+    \@acknowledgments
 }%
 
 \renewcommand{\maketitle}{%
     \pagenumbering{roman}%
-    {%
-        \pagestyle{empty}%
+        %\pagestyle{empty}%
         \titlepage
         \copyrightpage
         \abstractpage
@@ -367,7 +408,7 @@
         \if@lol
             \lstlistoflistings
         \fi
-    }%
+    \clearpage
     \pagenumbering{arabic}%
 }%
 
