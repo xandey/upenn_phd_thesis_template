@@ -250,7 +250,7 @@
 %\DeclareRobustCommand{\printbibliography}{
   \clearpage
   \phantomsection
-  \addcontentsline{toc}{chapter}{BIBLIOGRAPHY}
+  \addcontentsline{toc}{chapter}{Bibliography}
   \bibliographystyle{abbrvnat}
   \bibliography{\@bibfiles}
 }
@@ -378,10 +378,8 @@
 % ABSTRACT
 \newcommand{\abstractpage}{%
     \clearpage
-
     \phantomsection
-    \addcontentsline{toc}{chapter}{ABSTRACT} % This is to include this section in the Table of Contents
-
+    \addcontentsline{toc}{chapter}{Abstract} % This is to include this section in the Table of Contents
     \begin{center}
       \begin{spacing}{2.5}
         ABSTRACT
@@ -402,7 +400,7 @@
 \newcommand{\acknowledgmentspage}{%
     \clearpage
     \phantomsection
-    \addcontentsline{toc}{chapter}{ACKNOWLEDGMENT} % This is to include this section in the Table of Contents
+    \addcontentsline{toc}{chapter}{Acknowedgment} % This is to include this section in the Table of Contents
     \begin{center}
         ACKNOWLEDGMENT
     \end{center}
@@ -419,6 +417,8 @@
         \if@hasacknowledgments
             \acknowledgmentspage
         \fi
+        \clearpage
+        \pdfbookmark{\contentsname}{Contents}
         \tableofcontents
         \if@lof
             \listoffigures
