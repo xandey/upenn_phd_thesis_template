@@ -8,3 +8,6 @@
 *.tdo
 *.toc
 *.temp
+*.bib
+*.bbl
+*.blg

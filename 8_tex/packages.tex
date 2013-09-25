@@ -66,17 +66,6 @@
 \listoftodos
 }
 
-\newrobustcmd*{\printbibliography}{
-%\DeclareRobustCommand{\printbibliography}{
-\bibliographystyle{abbrvnat}
-\bibliography{9_bib/bibref_long,9_bib/thesis,0_egi/intro,0_egi/range,1_camlid/biblio,1_camlid/icra,1_camlid/thesis,1_camlid/icra2,2_butd/egi,3_ord/ord}
-}
-
-\newrobustcmd*{\nobibliography}{%
-%\DeclareRobustCommand{\nobibliography}{%
-  \@ifnextchar[%]
-    {\blx@nobibliography}
-    {\blx@nobibliography[]}}
 
 \newrobustcmd*{\notodolist}{%
 %\DeclareRobustCommand{\notodolist}{%

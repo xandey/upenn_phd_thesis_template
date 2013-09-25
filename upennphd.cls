@@ -156,8 +156,8 @@
 \newcommand{\@department}{Computer and Information Science}
 %\newcommand{\@graduatechair}{\color{red}Graduate~Chair}
 %\newcommand{\@supervisor}{{\color{red}Supervisor~Name}}
-\newcommand{\@graduatechair}{Graduate~Chair}
-\newcommand{\@supervisor}{{Supervisor~Name}}
+\newcommand{\@graduatechair}{{\color{red}Graduate~Chair}}
+\newcommand{\@supervisor}{{\color{red}Supervisor~Name}}
 \newcommand{\@committeechair}{\color{red}Committee~Chair~Name}
 \newcommand{\@committeemembera}{}
 \newcommand{\@committeememberb}{}
@@ -165,8 +165,8 @@
 \newcommand{\@committeememberd}{}
 %\newcommand{\@graduatechairtitle}{\color{red}Graduate~Chair~Title}
 %\newcommand{\@supervisortitle}{{\color{red}Supervisor~Title}}
-\newcommand{\@graduatechairtitle}{Graduate~Chair~Title}
-\newcommand{\@supervisortitle}{{Supervisor~Title}}
+\newcommand{\@graduatechairtitle}{\color{red}Graduate~Chair~Title}
+\newcommand{\@supervisortitle}{{\color{red}Supervisor~Title}}
 \newcommand{\@committeechairtitle}{\color{red}Comittee~Chair~Title}
 \newcommand{\@committeemembertitlea}{}
 \newcommand{\@committeemembertitleb}{}
@@ -183,7 +183,7 @@
 \newcommand{\@degreename}{Doctor of Philosophy}
 
 \newcommand{\@authorfull}{\color{red}Authors~Full~Name}
-
+\newcommand{\@bibfiles}{}
 %
 % This tells us whether to generate the acknowledgments
 \newif\if@hasacknowledgments
@@ -196,7 +196,9 @@
           left=1.5in, 
           right = 1in,
           includefoot}
-
+\geometry{marginparwidth=1.2in,
+          marginparsep=0.05in}
+\reversemarginpar
 
 %
 % Here are some things that can be set from inside the document.  Most of them
@@ -242,6 +244,22 @@
 }
 %\newcommand{\settextwidth}[1]{\geometry{textwidth=#1}}
 
+\newcommand{\bibfiles}[1]{\renewcommand{\@bibfiles}{#1}}
+
+\DeclareRobustCommand{\printbibliography}{
+%\DeclareRobustCommand{\printbibliography}{
+\bibliographystyle{abbrvnat}
+\bibliography{\@bibfiles}
+}
+
+\DeclareRobustCommand{\nobibliography}{%
+%\DeclareRobustCommand{\nobibliography}{%
+  \@ifnextchar[%]
+    {\blx@nobibliography}
+    {\blx@nobibliography[]}
+}
+
+
 \newcommand{\my@title}{\expandafter{\MakeUppercase{\@title}}}
 
 \newcommand{\mysignature}[3]{%
@@ -264,7 +282,7 @@
     \@@pdfbookmark[1]{Title Page}{title}%
     \begin{center}
 
-      \begin{spacing}{2.0}
+      \begin{spacing}{1.8}
       %\doublespacing
       %\onehalfspacing
 
@@ -302,7 +320,7 @@
       \mysignature{Graduate Group Chairperson}{\@graduatechair}{\@graduatechairtitle}
       
       Dissertation Committee\\
-      {\@committeechair}, {\@committeechairtitle}, Chair\\%
+      {\@committeechair}, {\@committeechairtitle}\\%
       \if@committeemembera
         {\@committeemembera}, {\@committeemembertitlea}\\
       \fi
@@ -420,21 +438,21 @@
     \pagenumbering{arabic}%
     %\parindent \@defaultindent
     % Fix the bibliography stuff (if using natbib).
-    \@ifpackageloaded{natbib}{% natbib loaded
-        \renewcommand{\bibname}{\refname}
-        \let\oldbibsection\bibsection
-        \renewcommand{\bibsection}{%
-            \oldbibsection
-            \refstepcounter{toclistings}%
-            \addcontentsline{toc}{chapter}{\refname}
-        }%
-    }{% natbib not loaded
-        \ClassWarning{upennphd}{Not using natbib - TOC might not show references.  Search class file comments for "NATBIB" for how to resolve this by hand (or just use natbib - it's an excellent package)}
-        \renewcommand{\bibname}{References}
-    }%
+    %% \@ifpackageloaded{natbib}{% natbib loaded
+    %%     \renewcommand{\bibname}{\refname}
+    %%     \let\oldbibsection\bibsection
+    %%     \renewcommand{\bibsection}{%
+    %%         \oldbibsection
+    %%         \refstepcounter{toclistings}%
+    %%         \addcontentsline{toc}{chapter}{\refname}
+    %%     }%
+    %% }{% natbib not loaded
+    %%     \ClassWarning{upennphd}{Not using natbib - TOC might not show references.  Search class file comments for "NATBIB" for how to resolve this by hand (or just use natbib - it's an excellent package)}
+    %%     \renewcommand{\bibname}{References}
+    %% }%
     % Set up double spacing---this is safe because the overall document is
     % single-spaced and we'll set up single spacing as the default in maketitle
     % where spacing matters.
-    \doublespace
+    %\doublespace
 }%
 %
