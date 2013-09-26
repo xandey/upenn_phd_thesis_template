@@ -8,7 +8,7 @@
 % BYU MS/PhD LaTeX Class File
 %   http://latex-byu-thesis.googlecode.com/
 
-% Version 0.2
+% Version 0.3
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{upennphd}[2013/09/25 UPenn PhD Dissertation Class]
@@ -55,6 +55,7 @@
 \DeclareOption{10pt}{\renewcommand{\@@ptsize}{10pt}}%
 \DeclareOption{11pt}{\renewcommand{\@@ptsize}{11pt}}%
 \DeclareOption{12pt}{\renewcommand{\@@ptsize}{12pt}}%
+\DeclareOption{git}{\renewcommand{\@usegittrue}}%
 
 %
 % Defaults:
@@ -68,6 +69,9 @@
 \@needdrawingfalse
 \@layoutfalse
 \@gridfalse
+
+\@usegitfalse
+
 \ExecuteOptions{%
     chapternum,
     chapterleft,
@@ -101,6 +105,77 @@
 \RequirePackage{calc}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
+
+\RequirePackage[table]{xcolor}
+\RequirePackage[square,sort&compress]{natbib}
+\RequirePackage{graphicx}
+\RequirePackage{times}
+\RequirePackage{amsmath,amsthm,amssymb,latexsym}
+\RequirePackage{multirow}
+\RequirePackage[boxed,chapter]{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{cancel}
+\RequirePackage{doi}
+\RequirePackage{placeins}
+\RequirePackage{epstopdf}
+\RequirePackage{import}
+\RequirePackage{comment}
+\RequirePackage{hyperref}
+\RequirePackage{ifdraft}
+\RequirePackage{etoolbox}
+
+\definecolor{ccolor}{rgb}{0.0,0.4,0.0}
+\definecolor{lcolor}{rgb}{0.2,0.2,0.4}
+\definecolor{ucolor}{rgb}{0.0,0.0,0.9}
+
+\hypersetup{
+  linkcolor=lcolor,
+  citecolor=ccolor,
+  urlcolor=ucolor,
+  colorlinks=true,
+}
+
+\RequirePackage[obeyFinal,colorinlistoftodos,textsize=footnotesize]{todonotes}
+
+\setcounter{tocdepth}{3}
+
+% for after todo to make the todolist on separate sheets of paper
+\RequirePackage{ifoddpage}
+\RequirePackage{subfiles}
+
+\renewcommand{\todo}[2][]{%
+    \@todo[caption={#2}, #1]{\begin{spacing}{0.5}#2\end{spacing}}%
+} 
+%\makeatother 
+%\makeatletter
+\newcommand*{\cleartoleftpage}{%
+  \clearpage
+  \checkoddpage
+  \ifoddpage
+  \else
+    \hbox{}\newpage
+  \fi
+}
+%\makeatother
+%\makeatletter
+
+\newcommand{\mylistoftodos}{
+\todototoc
+\phantomsection
+\listoftodos
+}
+
+
+\newrobustcmd*{\notodolist}{%
+%\DeclareRobustCommand{\notodolist}{%
+}
+
+\def\blx@nobibliography[#1]{}
+
+\appto{\skip@preamble}{\let\printbibliography\nobibliography}
+\appto{\skip@preamble}{\let\mylistoftodos\notodolist}
 
 %
 % If we are showing a list of listings, then we need to include the listings package
@@ -183,7 +258,8 @@
 \newcommand{\@degreename}{Doctor of Philosophy}
 
 \newcommand{\@authorfull}{\color{red}Authors~Full~Name}
-\newcommand{\@bibfiles}{}
+\newcommand{\@upennbibfiles}{}
+\newcommand{\@upenngraphicspath}{}
 %
 % This tells us whether to generate the acknowledgments
 \newif\if@hasacknowledgments
@@ -244,7 +320,10 @@
 }
 %\newcommand{\settextwidth}[1]{\geometry{textwidth=#1}}
 
-\newcommand{\bibfiles}[1]{\renewcommand{\@bibfiles}{#1}}
+\newcommand{\upennbibfiles}[1]{\renewcommand{\@upennbibfiles}{#1}}
+\newcommand{\upenngraphicspath}[1]{\renewcommand{\@upenngraphicspath}{#1}}
+
+\graphicspath{\@upenngraphicspath}
 
 \DeclareRobustCommand{\printbibliography}{
 %\DeclareRobustCommand{\printbibliography}{
@@ -252,7 +331,7 @@
   \phantomsection
   \addcontentsline{toc}{chapter}{Bibliography}
   \bibliographystyle{abbrvnat}
-  \bibliography{\@bibfiles}
+  \bibliography{\@upennbibfiles}
 }
 
 \DeclareRobustCommand{\nobibliography}{%
