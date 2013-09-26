@@ -29,7 +29,7 @@ This is setup to add a git short hash in the bottom right corner of pages. This 
      make gitHeadInfo.gin
 
 # TODO
-Empty
+* Add graphics examples for testing and demonstration.
 
 # Known Issues
 * Unable to make gitHeadInfo.gin before the stuff that depends on it. Also, can't figure out how to detect dependency on gitHeadInfo.gin for targets automatically.
