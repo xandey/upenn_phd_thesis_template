@@ -18,7 +18,7 @@
 \newif\if@lot % Show list of tables?
 \newif\if@lol % Show list of listings?
 \newif\if@needlistings % Need the listings package?  Using List of Listings?
-\newif\if@layout % This will draw lines showing all the margins
+\newif\if@layoutoutline % This will draw lines showing all the margins
 \newif\if@needdrawing % Need the eso-pic environment?  Drawing something?
 \newif\if@grid % Show a grid
 \newif\if@committeemembera
@@ -50,12 +50,12 @@
 \DeclareOption{lof}{\@loftrue}
 \DeclareOption{lot}{\@lottrue}
 \DeclareOption{lol}{\@needlistingstrue \@loltrue}
-\DeclareOption{layout}{\@needdrawingtrue \@layouttrue}
+\DeclareOption{layoutoutline}{\@needdrawingtrue \@layoutoutlinetrue}
 \DeclareOption{grid}{\@needdrawingtrue \@gridtrue}
 \DeclareOption{10pt}{\renewcommand{\@@ptsize}{10pt}}%
 \DeclareOption{11pt}{\renewcommand{\@@ptsize}{11pt}}%
 \DeclareOption{12pt}{\renewcommand{\@@ptsize}{12pt}}%
-\DeclareOption{git}{\renewcommand{\@usegittrue}}%
+\DeclareOption{git}{\@usegittrue}%
 
 %
 % Defaults:
@@ -67,7 +67,7 @@
 
 % Don't show the layout, usually
 \@needdrawingfalse
-\@layoutfalse
+\@layoutoutlinefalse
 \@gridfalse
 
 \@usegitfalse
@@ -129,6 +129,7 @@
 \definecolor{ccolor}{rgb}{0.0,0.4,0.0}
 \definecolor{lcolor}{rgb}{0.2,0.2,0.4}
 \definecolor{ucolor}{rgb}{0.0,0.0,0.9}
+\colorlet{RED}{red}
 
 \hypersetup{
   linkcolor=lcolor,
@@ -138,6 +139,25 @@
 }
 
 \RequirePackage[obeyFinal,colorinlistoftodos,textsize=footnotesize]{todonotes}
+
+\if@usegit
+  \RequirePackage[grumpy]{gitinfo}
+  \RequirePackage{fancyhdr}
+
+  \fancypagestyle{plain}{%
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[R]{\gitAbbrevHash}
+    \fancyfoot[C]{\bfseries \thepage} % except the center
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}}% header for git stuff:
+
+  \fancypagestyle{empty}{%
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[R]{\gitAbbrevHash}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}}% header for git stuff:
+\fi
+
 
 \setcounter{tocdepth}{3}
 
@@ -210,7 +230,7 @@
     }%
     \AddToShipoutPicture{%
         \@layoutpreamble
-        \if@layout
+        \if@layoutoutline
             \@rightsidebox
             \@leftsidebox
             \@prefaceinnerbox
