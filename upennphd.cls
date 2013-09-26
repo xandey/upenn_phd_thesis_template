@@ -141,7 +141,7 @@
 \RequirePackage[obeyFinal,colorinlistoftodos,textsize=footnotesize]{todonotes}
 
 \if@usegit
-  \RequirePackage[grumpy]{gitinfo}
+  \RequirePackage[missing={make gitHeadInfo.gin}]{gitinfo}
   \RequirePackage{fancyhdr}
 
   \fancypagestyle{plain}{%
